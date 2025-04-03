@@ -24,10 +24,11 @@ class ItineraryService {
     }
   }
 
+  // Changes are made for testing
   async getItineraries(userId, page = 1, limit = 10, filters = {}) {
     try {
       const skip = (page - 1) * limit;
-      const query = { userId };
+      const query = {  };
       
       // Add destination filter if provided
       if (filters.destination) {

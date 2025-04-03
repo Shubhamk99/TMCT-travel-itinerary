@@ -1,4 +1,5 @@
 const itineraryService = require('../services/itinerary.service');
+const { successResponse, errorResponse } = require('../utils/responseWrapper');
 
 class ItineraryController {
   async createItinerary(req, res) {
@@ -20,6 +21,7 @@ class ItineraryController {
     }
   }
 
+// Changes are made for testing
   async getItineraries(req, res) {
     try {
       const { page = 1, limit = 10, destination, sort } = req.query;
@@ -29,17 +31,15 @@ class ItineraryController {
       };
       
       const result = await itineraryService.getItineraries(
-        req.user._id,
+        'req.user._id',
         parseInt(page),
         parseInt(limit),
         filters
       );
-      res.json({
-        success: true,
-        data: result
-      });
+
+      return successResponse(res, result);
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      return errorResponse(res, error);
     }
   }
 
